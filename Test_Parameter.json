@@ -1,0 +1,14 @@
+[
+   {
+    "ParameterKey": "TestVPCcidr",
+    "ParameterValue": "10.20.0.0/16"
+   },
+   {
+    "ParameterKey": "TestVPCSNAZ",
+    "ParameterValue": "us-east-1b"
+   },
+   {
+    "ParameterKey": "TestVPCSNcidr",
+    "ParameterValue": "10.20.1.0/24"
+   }
+]

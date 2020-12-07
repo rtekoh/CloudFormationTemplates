@@ -1,0 +1,70 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "This template is for EC2 INSTANCE LAUNCH",
+    "Metadata": {
+    },
+    "Parameters": {
+      "MyKey": {
+        "Description": "Provide Keypair for MyEc2Instance",
+        "Type": "String"
+    },
+    "MYEc2Imageid": {
+        "Description": "Provide Imageid for MyEc2Instance",
+        "Type": "String"
+    },
+    "MyINstanceType": {
+        "Description": "Provide Instance Type for MyEc2Instance",
+        "Type": "String"
+    },
+    "MySG": {
+        "Description": "Provide SG for MyEc2Instance",
+        "Type": "String"
+  },
+  "MySubnetId": {
+      "Description": "Provide Subnet for MyEc2Instance",
+      "Type": "String"
+},
+"MySubnetAZ": {
+    "Description": "Provide SubnetAZ for MyEc2Instance",
+    "Type": "AWS::EC2::AvailabilityZone::Name"
+  }
+},
+    "Mappings": {
+    },
+    "Conditions": {
+    },
+    "Resources": {"MyEc2Instance": {
+        "Type": "AWS::EC2::Instance",
+        "Properties": {
+            "KeyName":{ "Ref": "MyKey" } ,
+            "ImageId": { "Ref": "MYEc2Imageid" },
+            "InstanceType": { "Ref": "MyINstanceType" },
+            "Monitoring": "false",
+            "MapPublicIpOnLaunch": true,
+            "SecurityGroupIds" : { "Ref": "MySG" },
+            "SubnetId": { "Ref": "MySubnetId" },
+                "AvailabilityZone": { "Ref": "MySubnetAZ" },
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "MyEc2Instance"
+                }
+            ],
+            "UserData": {
+                "Fn::Base64": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "#!/bin/bash -ex",
+                            "/opt/aws/bin/cfn-init -v "
+                        ]
+                    ]
+                }
+            }
+    }
+            }
+    },
+    "Outputs": {
+
+    }
+}

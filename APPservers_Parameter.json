@@ -1,0 +1,27 @@
+[
+   {
+    "ParameterKey": "Subnet1",
+    "ParameterValue": "subnet-0030885b0e1b779fc"
+   },
+   {
+    "ParameterKey": "Subnet2",
+    "ParameterValue": "subnet-05140645e7b77098d"
+   },
+   {
+    "ParameterKey": "AppserverKeyName",
+    "ParameterValue": "BOB-Keys"
+   },
+   {
+    "ParameterKey": "AppserverInstanceType",
+    "ParameterValue": "t2.micro"
+   },
+   {
+     "ParameterKey": "AppserverInstanceType2",
+     "ParameterValue": "t2.small"
+   },
+  {
+    "ParameterKey": "AppserverAMIID",
+    "ParameterValue" : "ami-04bf6dcdc9ab498ca"
+  }
+
+]

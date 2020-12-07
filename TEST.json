@@ -1,0 +1,81 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "this template is to launch TestVPC network",
+    "Metadata": {
+
+    },
+    "Parameters": {"TestVPCcidr": {
+        "Description": "Provide CIDR for TestVPC",
+        "Type": "String"
+    },
+    "TestVPCSNAZ": {
+        "Description": " Provide a AZ for TestVPCSN",
+        "Type": "AWS::EC2::AvailabilityZone::Name"
+    },
+    "TestVPCSNcidr": {
+        "Description": "Provide CIDR for TestVPCSN",
+        "Type": "String"
+    }
+    },
+    "Mappings": {
+
+    },
+    "Conditions": {
+
+    },
+    "Resources": {"TestVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": { "Ref": "TestVPCcidr" },
+        "Tags": [{ "Key": "Name", "Value":  "TestVPC" }]
+      }
+    },
+    "TestVPCIGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [{ "Key": "Name", "Value":  "TestVPCIGW" }]
+      }
+    },
+    "AttachGateway": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": { "Ref": "TestVPC" },
+        "InternetGatewayId": { "Ref": "TestVPCIGW" }
+      }
+    },
+    "TestVPCSN": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "AvailabilityZone": { "Ref": "TestVPCSNAZ" },
+        "VpcId": { "Ref": "TestVPC" },
+        "CidrBlock":{ "Ref": "TestVPCSNcidr" },
+        "Tags": [{ "Key": "Name", "Value":  "TestVPCSN" }]
+      }
+    },
+    "TestVPCSNRT": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": { "Ref": "TestVPC" },
+        "Tags": [{ "Key": "Name", "Value":  "TestVPCSNRT" }]
+      }
+    },
+    "routeTableAssocName": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "SubnetId": { "Ref": "TestVPCSN" },
+        "RouteTableId": { "Ref": "TestVPCSNRT" }
+      }
+    },
+    "route": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": { "Ref": "TestVPCSNRT" },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": { "Ref": "TestVPCIGW" }
+      }
+    }
+    },
+    "Outputs": {
+
+    }
+}
